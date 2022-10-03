@@ -1,17 +1,13 @@
 import { Product } from "./Product";
 
 class Catalog {
-    private product: Product[];
+    product: Product[];
 
     constructor(
         private title: string,
         private description: string,
         private viewLink: string
     ) {}
-
-    getProducts(): Product[] {
-        return this.product;
-    }
 
     getTitle(): string {
         return this.title;

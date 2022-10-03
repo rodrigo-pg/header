@@ -16,6 +16,10 @@ class ORMDataSource implements ProductsDataSource {
         return (await this.db.findOne(productId) as Product);
     }
 
+    async getMany(products: string[]): Promise<Product[]> {
+        return await this.db.findMany(products);
+    }
+
     async getAll(): Promise<Product[]> {
         return await this.db.find();
     }

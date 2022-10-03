@@ -1,8 +1,10 @@
-import { makeDeleteCatalogController } from "../../../catalogs/main/factories/delete-catalog";
+import { makeAddCatalogProductController } from "../../../catalogs/main/factories/add-product";
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { get } from "../../controllers/catalogs";
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
-    const controller = await makeDeleteCatalogController();
+    console.log(await get)
+    const controller = await makeAddCatalogProductController();
     const data = await controller.handle(request);
 
     response.status(data.statusCode).json({...data.body});

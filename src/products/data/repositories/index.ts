@@ -16,6 +16,10 @@ class ProductsRepositoryImpl implements ProductsRepository {
         return await this.productsDataSource.get(productId);
     }
 
+    async getMany(products: string[]): Promise<Product[]> {
+        return await this.productsDataSource.getMany(products);
+    }
+
     async getAll(): Promise<Product[]> {
         return await this.productsDataSource.getAll();
     }

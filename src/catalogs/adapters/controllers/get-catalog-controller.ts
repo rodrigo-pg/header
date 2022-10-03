@@ -20,6 +20,7 @@ class GetCatalogController implements Controller {
 
             return ok({result: catalog});
         } catch (error) {
+            console.log(error)
             return serverError("internal");
         }
     }

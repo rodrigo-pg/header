@@ -4,14 +4,10 @@ services:
     image: "mongo:latest"
     ports:
       - "27017:27017"
-  products:
-    build: ./src/products
+  gateway:
+    build: ./src/gateway
     ports:
       - "3000:3000"
     depends_on:
       mongodb:
         condition: service_started
-  catalogs:
-    build: ./src/catalogs
-    ports:
-      - "4000:4000"
