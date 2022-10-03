@@ -11,12 +11,13 @@ class RemoveProductCatalogController implements Controller {
     ) {}
 
     async handle(request: HttpRequest): Promise<HttpResponse> {
-        const { referenceId } = request.body;
+        const { productId, catalogId } = request.body;
 
-        if (!referenceId.trim()) return badRequest(new MissingParamError("reference id"));
+        if (!productId.trim()) return badRequest(new MissingParamError("product id"));
+        if (!catalogId.trim()) return badRequest(new MissingParamError("catalog id"));
 
         try {
-            await this.removeProductCatalogUseCase.execute(referenceId);
+            await this.removeProductCatalogUseCase.execute({productId, catalogId});
 
             return ok({result: "Product successfully removed"});
         } catch (error) {

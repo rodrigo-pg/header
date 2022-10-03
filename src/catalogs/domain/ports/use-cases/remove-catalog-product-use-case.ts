@@ -1,3 +1,10 @@
 export interface RemoveCatalogProductUseCase {
-    execute(referenceId: string): Promise<void>;
+    execute(removeData: RemoveCatalogProductUseCase.Input): Promise<void>;
+}
+
+export namespace RemoveCatalogProductUseCase {
+    export type Input = {
+        productId: string;
+        catalogId: string;
+    }
 }

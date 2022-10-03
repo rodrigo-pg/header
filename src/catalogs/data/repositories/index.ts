@@ -1,4 +1,5 @@
 import { Catalog } from "../../domain/entities/Catalog";
+import { CatalogDTO } from "../../domain/entities/CatalogDTO";
 import { CatalogsRepository } from "../../domain/ports/catalogs-repository";
 import { CatalogDataSource } from "../interfaces/data-sources/catalog-data-source";
 
@@ -8,16 +9,16 @@ class CatalogRepositoryImpl implements CatalogsRepository {
         private catalogDataSource: CatalogDataSource
     ) {}
 
-    async add(catalog: Catalog): Promise<void> {
-        await this.catalogDataSource.add(catalog)
+    async add(catalog: Catalog): Promise<CatalogDTO> {
+        return await this.catalogDataSource.add(catalog);
     }
 
     async addProductCatalog(catalogId: string, productId: string): Promise<void> {
         await this.catalogDataSource.addProductCatalog(catalogId, productId);
     }
 
-    async removeProductCatalog(referenceId: string): Promise<void> {
-        await this.catalogDataSource.removeProductCatalog(referenceId);
+    async removeProductCatalog(catalogId: string, productId: string): Promise<void> {
+        await this.catalogDataSource.removeProductCatalog(catalogId, productId);
     }
 
     async get(catalogId: string): Promise<Catalog> {

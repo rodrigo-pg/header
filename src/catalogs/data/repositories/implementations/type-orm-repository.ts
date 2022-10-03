@@ -5,20 +5,21 @@ import { TypeORMWrapper } from "../../data-sources/orm-db/wrappers/type-orm";
 import { Catalog } from "../../data-sources/orm-db/wrappers/type-orm/models/Catalog";
 import { Product } from "../../data-sources/orm-db/wrappers/type-orm/models/Product";
 
-let catalogsRepository = null;
+// let catalogsRepository = null;
 
 async function getTypeORMCatalogsRepository() {
 
-    if (catalogsRepository) return catalogsRepository;
+    // if (catalogsRepository) return catalogsRepository;
 
-    await connectionSource.initialize();
-    console.log("[+] Created TypeORM Connection")
+    // await connectionSource.initialize();
+    // console.log("[+] Created TypeORM Connection")
+    const source = await connectionSource.getConnection();
     const typeORMWrapper = new TypeORMWrapper(
-        connectionSource.getRepository(Catalog), 
-        connectionSource.getRepository(Product)
+        source.getRepository(Catalog), 
+        source.getRepository(Product)
     );
     const ormDataSource = new ORMDataSource(typeORMWrapper);
-    catalogsRepository = new CatalogRepositoryImpl(ormDataSource);
+    const catalogsRepository = new CatalogRepositoryImpl(ormDataSource);
     return catalogsRepository;
 }
 

@@ -1,5 +1,6 @@
 import { Repository } from "typeorm";
 import { Catalog } from "../../../../../domain/entities/Catalog";
+import { CatalogDTO } from "../../../../../domain/entities/CatalogDTO";
 import { ORMWrapper } from "../../../../interfaces/data-sources/wrappers/orm-wrapper";
 import { Catalog as CatalogModel } from "./models/Catalog";
 import { Product } from "./models/Product";
@@ -19,14 +20,14 @@ class TypeORMWrapper implements ORMWrapper {
         return (await this.catalogsRepository.findOne({relations: ["product"], where: [{id: catalogId}]}) as any);
     }
 
-    async insertOne(catalog: Catalog): Promise<void> {
+    async insertOne(catalog: Catalog): Promise<CatalogDTO> {
         const catalogData = {
             title: catalog.getTitle(),
             description: catalog.getDescription(),
             viewLink: catalog.getViewLink()
         }
         const catalogEntry = this.catalogsRepository.create(catalogData);
-        await this.catalogsRepository.save(catalogEntry);
+        return await this.catalogsRepository.save(catalogEntry);
     }
 
     async insertProductReference(catalogId: string, productId: string): Promise<void> {
@@ -38,8 +39,8 @@ class TypeORMWrapper implements ORMWrapper {
         await this.productsRepository.save(entry);
     }
 
-    async removeProductReference(referenceId: string): Promise<void> {
-        await this.productsRepository.delete({id: referenceId});
+    async removeProductReference(catalogId: string, productId: string): Promise<void> {
+        await this.productsRepository.delete({productId, catalogId});
     }
 
     async delete(catalogId: string): Promise<void> {
