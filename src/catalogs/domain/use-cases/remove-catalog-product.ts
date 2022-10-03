@@ -7,8 +7,8 @@ class RemoveCatalogProduct implements RemoveCatalogProductUseCase {
         private catalogsRepository: CatalogsRepository
     ) {}
 
-    async execute(referenceId: string): Promise<void> {
-        await this.catalogsRepository.removeProductCatalog(referenceId);
+    async execute(removeData: RemoveCatalogProductUseCase.Input): Promise<void> {
+        await this.catalogsRepository.removeProductCatalog(removeData.catalogId, removeData.productId);
     }
 }
 

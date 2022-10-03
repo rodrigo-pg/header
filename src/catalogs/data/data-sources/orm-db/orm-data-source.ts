@@ -1,4 +1,5 @@
 import { Catalog } from "../../../domain/entities/Catalog";
+import { CatalogDTO } from "../../../domain/entities/CatalogDTO";
 import { CatalogDataSource } from "../../interfaces/data-sources/catalog-data-source";
 import { ORMWrapper } from "../../interfaces/data-sources/wrappers/orm-wrapper";
 
@@ -8,8 +9,8 @@ class ORMDataSource implements CatalogDataSource {
         private db: ORMWrapper
     ) {}
 
-    async add(catalog: Catalog): Promise<void> {
-        await this.db.insertOne(catalog)
+    async add(catalog: Catalog): Promise<CatalogDTO> {
+        return await this.db.insertOne(catalog);
     }
 
     async addProductCatalog(catalogId: string, productId: string): Promise<void> {
@@ -32,8 +33,8 @@ class ORMDataSource implements CatalogDataSource {
         await this.db.delete(catalogId);
     }
 
-    async removeProductCatalog(referenceId: string): Promise<void> {
-        await this.db.removeProductReference(referenceId);
+    async removeProductCatalog(catalogId: string, productId: string): Promise<void> {
+        await this.db.removeProductReference(catalogId, productId);
     }
 }
 

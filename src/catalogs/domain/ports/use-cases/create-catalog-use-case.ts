@@ -1,7 +1,7 @@
-import { Catalog } from "../../entities/Catalog"
+import { CatalogDTO } from "../../entities/CatalogDTO"
 
 export interface CreateCatalogUseCase {
-    execute(catalogData: CreateCatalogUseCase.Input): Promise<Catalog>
+    execute(catalogData: CreateCatalogUseCase.Input): Promise<CatalogDTO>
 }
 
 export namespace CreateCatalogUseCase {

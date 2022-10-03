@@ -1,4 +1,5 @@
 import { Catalog } from "../entities/Catalog";
+import { CatalogDTO } from "../entities/CatalogDTO";
 import { CatalogsRepository } from "../ports/catalogs-repository";
 import { CreateCatalogUseCase } from "../ports/use-cases/create-catalog-use-case";
 
@@ -8,10 +9,9 @@ class CreateCatalog implements CreateCatalogUseCase {
         private catalogsRepository: CatalogsRepository
     ) {}
 
-    async execute(catalogData: CreateCatalogUseCase.Input): Promise<Catalog> {
+    async execute(catalogData: CreateCatalogUseCase.Input): Promise<CatalogDTO> {
         const catalog = new Catalog(catalogData.title, catalogData.description, catalogData.viewLink);
-        await this.catalogsRepository.add(catalog);
-        return catalog;
+        return await this.catalogsRepository.add(catalog);
     }
 }
 

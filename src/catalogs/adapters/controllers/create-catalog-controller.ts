@@ -18,9 +18,9 @@ class CreateCatalogController implements Controller {
         if (!viewLink.trim()) return badRequest(new MissingParamError("view link"));
 
         try {
-            await this.createCatalogUseCase.execute({ title, description, viewLink });
+            const result = await this.createCatalogUseCase.execute({ title, description, viewLink });
 
-            return created({result: "Catalog created successfully"});
+            return created({result});
         } catch (error) {
             console.log(error)
             return serverError("internal");
